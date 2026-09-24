@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>IADEX | Automatización e Inteligencia Artificial para empresas</title>
+<meta name="description" content="Automatizo procesos de empresa con IA para que dejes de perder horas en tareas repetitivas: agentes, integraciones y desarrollo a medida. Proyecto de Edu Cano.">
+<meta name="author" content="IADEX">
+<meta name="theme-color" content="#07080c">
+<link rel="canonical" href="https://iadex.es/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="IADEX">
+<meta property="og:title" content="IADEX | Tu empresa. En automático.">
+<meta property="og:description" content="Automatización, agentes de IA y desarrollo a medida para empresas que quieren dejar de perder horas en tareas repetitivas.">
+<meta property="og:image" content="https://iadex.es/assets/edu-cano-iadex.jpg">
+<meta property="og:url" content="https://iadex.es/">
+<meta name="twitter:image" content="https://iadex.es/assets/edu-cano-iadex.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="IADEX | Tu empresa. En automático.">
+<meta name="twitter:description" content="Automatización e Inteligencia Artificial para empresas.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2307080c'/%3E%3Ctext x='32' y='43' font-family='Segoe UI,Helvetica,Arial' font-size='30' font-weight='800' fill='%23f2f5f9' text-anchor='middle'%3EI%3C/text%3E%3Ccircle cx='46' cy='40' r='4' fill='%233d7bff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;1,400;1,500;1,600&display=swap" rel="stylesheet">
+
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --bg:#07080c;
+  --bg-soft:#0b0d13;
+  --fg:#f2f5f9;
+  --muted:#98a2b3;
+  --line:rgba(255,255,255,.10);
+  --line-soft:rgba(255,255,255,.06);
+  --glass:rgba(255,255,255,.04);
+  --glass-2:rgba(255,255,255,.07);
+  --electric:#3d7bff;
+  --electric-2:#7aa7ff;
+  --electric-fg:#04060f;
+  --glow:0 24px 70px -24px rgba(61,123,255,.65);
+  --shadow:0 24px 70px -30px rgba(0,0,0,.85);
+  --radius:22px;
+  --container:1180px;
+  --ff-sans:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  --ff-serif:'Playfair Display',Georgia,'Times New Roman',serif;
+}
+
+/* ============ BASE ============ */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:96px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--fg);
+  font-family:var(--ff-sans);font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+h1,h2,h3,h4{margin:0;line-height:1.05;letter-spacing:-.03em;font-weight:800}
+p{margin:0}
+ul{margin:0;padding:0;list-style:none}
+:focus-visible{outline:2px solid var(--electric-2);outline-offset:3px;border-radius:6px}
+
+.container{width:100%;max-width:var(--container);margin-inline:auto;padding-inline:clamp(1.1rem,4vw,2rem)}
+.serif{font-family:var(--ff-serif);font-style:italic;font-weight:500;letter-spacing:-.01em}
+.muted{color:var(--muted)}
+.electric{color:var(--electric-2)}
+
+.eyebrow{
+  display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--muted);
+}
+.h2{font-size:clamp(2.1rem,4.6vw,3.6rem)}
+.lede{color:var(--muted);font-size:1.05rem;max-width:52ch}
+
+.skip{position:absolute;left:-9999px;top:0;z-index:200;background:var(--electric);color:var(--electric-fg);padding:.8rem 1.2rem;border-radius:0 0 12px 0;font-weight:700}
+.skip:focus{left:0}
+
+/* ============ BUTTONS ============ */
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;border-radius:999px;
+  padding:.95rem 1.6rem;font-size:.9rem;font-weight:700;letter-spacing:-.01em;
+  border:1px solid transparent;cursor:pointer;
+  transition:transform .25s ease,background .25s ease,border-color .25s ease,box-shadow .25s ease;
+}
+.btn svg{width:1rem;height:1rem;transition:transform .25s ease}
+.btn-primary{background:var(--electric);color:var(--electric-fg);box-shadow:var(--glow)}
+.btn-primary:hover{transform:translateY(-2px);background:#5a8fff}
+.btn-primary:hover svg{transform:translateX(3px)}
+.btn-ghost{background:var(--glass);border-color:var(--line);backdrop-filter:blur(14px)}
+.btn-ghost:hover{background:var(--glass-2);transform:translateY(-2px)}
+.btn-sm{padding:.6rem 1.1rem;font-size:.83rem}
+
+/* ============ HEADER ============ */
+.site-header{
+  position:fixed;left:50%;top:1rem;transform:translateX(-50%);
+  width:calc(100% - 1.5rem);max-width:1060px;z-index:100;
+  border:1px solid var(--line-soft);border-radius:20px;
+  background:rgba(10,12,18,.35);backdrop-filter:blur(18px);
+  transition:background .35s ease,border-color .35s ease,box-shadow .35s ease;
+}
+.site-header.is-scrolled{background:rgba(8,10,15,.82);border-color:var(--line);box-shadow:var(--shadow)}
+.site-header.is-menu-open{background:rgba(8,10,15,.98);border-color:var(--line);box-shadow:var(--shadow)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;height:3.6rem;padding-inline:1rem}
+.brand{display:flex;align-items:baseline;gap:.08rem;font-size:1.3rem;font-weight:800;letter-spacing:-.045em}
+.brand span{color:var(--electric)}
+.nav-links{display:none;align-items:center;gap:1.7rem}
+.nav-links a{font-size:.87rem;font-weight:500;color:var(--muted);transition:color .2s ease;position:relative}
+.nav-links a:hover,.nav-links a.is-active{color:var(--fg)}
+.nav-links a.is-active::after{
+  content:"";position:absolute;left:0;right:0;bottom:-.5rem;height:2px;border-radius:2px;background:var(--electric)
+}
+.nav-cta{display:none}
+.burger{
+  display:grid;place-items:center;width:2.4rem;height:2.4rem;border-radius:12px;
+  border:1px solid var(--line);background:transparent;cursor:pointer
+}
+.burger svg{width:1.05rem;height:1.05rem}
+.burger .ico-close{display:none}
+.burger[aria-expanded="true"] .ico-open{display:none}
+.burger[aria-expanded="true"] .ico-close{display:block}
+
+.mobile-menu{
+  display:none;padding:.4rem 1rem 1.1rem;border-top:1px solid var(--line-soft)
+}
+.mobile-menu.is-open{display:block}
+.mobile-menu a{display:block;padding:.85rem .25rem;font-weight:600;border-bottom:1px solid var(--line-soft)}
+.mobile-menu a:last-of-type{border-bottom:0}
+.mobile-menu .btn{width:100%;justify-content:center;margin-top:.8rem}
+
+@media(min-width:900px){
+  .nav-links{display:flex}
+  .nav-cta{display:inline-flex}
+  .burger{display:none}
+  .mobile-menu{display:none !important}
+}
+
+/* ============ REVEAL ============ */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.reveal.is-visible{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  .float-a,.float-b,.marquee__track{animation:none !important}
+}
+
+/* ============ HERO ============ */
+.hero{position:relative;overflow:hidden;padding:9.5rem 0 5rem}
+.hero__glow{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.hero__glow i{position:absolute;border-radius:50%;display:block;filter:blur(130px)}
+.hero__glow i:nth-child(1){width:min(640px,90vw);height:min(640px,90vw);top:-14rem;left:-12rem;background:rgba(61,123,255,.22)}
+.hero__glow i:nth-child(2){width:min(520px,80vw);height:min(520px,80vw);top:28%;right:-12rem;background:rgba(61,123,255,.13)}
+.hero__grid{display:grid;gap:3.5rem;align-items:center}
+@media(min-width:1000px){.hero__grid{grid-template-columns:1.12fr 1fr;gap:4rem}.hero{padding:11rem 0 6rem}}
+
+.pill{
+  display:inline-flex;align-items:center;gap:.6rem;border:1px solid var(--line);
+  background:var(--glass);border-radius:999px;padding:.4rem .9rem;backdrop-filter:blur(10px)
+}
+.pill .dot{position:relative;width:.5rem;height:.5rem;flex:none}
+.pill .dot::before,.pill .dot::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--electric)}
+.pill .dot::before{animation:ping 1.8s cubic-bezier(0,0,.2,1) infinite;opacity:.7}
+@keyframes ping{75%,100%{transform:scale(2.4);opacity:0}}
+.pill span{font-size:.66rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+
+.hero h1{margin-top:1.6rem;font-size:clamp(2.8rem,7.6vw,5.2rem);line-height:.96}
+.hero h1 .grad{
+  background:linear-gradient(180deg,#fff 10%,rgba(255,255,255,.42) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero__lede{margin-top:1.7rem;font-size:clamp(1.02rem,1.6vw,1.22rem);color:var(--muted);max-width:34rem}
+.hero__actions{margin-top:2.2rem;display:flex;flex-wrap:wrap;gap:.75rem}
+.hero__proof{margin-top:2.6rem;display:flex;flex-wrap:wrap;gap:1.6rem 2.4rem;padding-top:1.6rem;border-top:1px solid var(--line-soft)}
+.hero__proof div strong{display:block;font-size:1.5rem;font-weight:800;letter-spacing:-.03em}
+.hero__proof div span{font-size:.72rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted)}
+
+/* orbit */
+.orbit{position:relative;width:100%;max-width:500px;margin-inline:auto;aspect-ratio:1}
+.orbit__ring{position:absolute;border-radius:50%;border:1px solid var(--line-soft)}
+.orbit__ring:nth-of-type(1){inset:0}
+.orbit__ring:nth-of-type(2){inset:2rem}
+.orbit__ring:nth-of-type(3){inset:4rem;border-style:dashed;border-color:var(--line)}
+.orbit__core{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  display:grid;place-items:center;width:8rem;height:8rem;border-radius:26px;
+  border:1px solid var(--line);background:var(--glass-2);backdrop-filter:blur(16px);box-shadow:var(--glow);text-align:center
+}
+.orbit__core b{display:block;font-size:1.8rem;font-weight:800;letter-spacing:-.04em}
+.orbit__core i{display:block;margin-top:.2rem;font-style:normal;font-size:.6rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--electric-2)}
+.chip{
+  position:absolute;display:flex;align-items:center;gap:.7rem;
+  border:1px solid var(--line);background:rgba(255,255,255,.05);backdrop-filter:blur(16px);
+  border-radius:16px;padding:.65rem .9rem;box-shadow:var(--shadow);white-space:nowrap
+}
+.chip .ico{display:grid;place-items:center;width:1.75rem;height:1.75rem;border-radius:9px;background:rgba(61,123,255,.16);color:var(--electric-2);flex:none}
+.chip .ico svg{width:.9rem;height:.9rem}
+.chip small{display:block;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.chip b{display:block;font-size:.85rem;font-weight:700}
+.chip.c1{left:-.5rem;top:2rem}
+.chip.c2{right:-.75rem;top:6rem}
+.chip.c3{left:.5rem;bottom:3.5rem}
+.chip.c4{right:.5rem;bottom:.25rem}
+.float-a{animation:floaty 7s ease-in-out infinite}
+.float-b{animation:floaty 9.5s ease-in-out infinite}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@media(max-width:640px){.chip{padding:.5rem .7rem}.chip.c1{left:-.25rem}.chip.c2{right:-.25rem}}
+
+/* ============ SECTION SHELL ============ */
+section{position:relative}
+.sec{padding:clamp(4.5rem,10vw,8rem) 0}
+.sec__head{display:flex;flex-direction:column;gap:1.4rem;margin-bottom:3.4rem}
+@media(min-width:900px){.sec__head{flex-direction:row;align-items:flex-end;justify-content:space-between;gap:3rem}}
+.sec__head h2{margin-top:1rem;max-width:19ch}
+
+/* ============ SERVICES BENTO ============ */
+.bento{display:grid;gap:1rem;grid-template-columns:1fr}
+@media(min-width:760px){.bento{grid-template-columns:repeat(12,1fr);grid-auto-rows:230px}}
+.card{
+  position:relative;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;
+  border:1px solid var(--line);border-radius:26px;background:rgba(255,255,255,.028);
+  padding:1.8rem;backdrop-filter:blur(14px);
+  transition:transform .45s cubic-bezier(.16,1,.3,1),border-color .35s ease,background .35s ease;
+  min-height:220px;
+}
+.card:hover{transform:translateY(-5px);border-color:rgba(61,123,255,.45);background:rgba(255,255,255,.055)}
+.card__num{
+  position:absolute;right:1.5rem;top:1.1rem;font-size:3.4rem;font-weight:800;letter-spacing:-.05em;
+  color:rgba(255,255,255,.055);transition:color .35s ease
+}
+.card:hover .card__num{color:rgba(61,123,255,.22)}
+.card__ico{display:grid;place-items:center;width:2.7rem;height:2.7rem;border-radius:13px;background:rgba(61,123,255,.15);color:var(--electric-2);margin-bottom:auto}
+.card__ico svg{width:1.25rem;height:1.25rem}
+.card h3{margin-top:1.6rem;font-size:1.4rem;letter-spacing:-.035em}
+.card p{margin-top:.7rem;color:var(--muted);font-size:.92rem;max-width:44ch}
+.card.is-lead .card__num{font-size:5rem}
+.card.is-lead h3{font-size:clamp(1.8rem,3vw,2.4rem)}
+@media(min-width:760px){
+  .card.s8{grid-column:span 8}.card.s6{grid-column:span 6}.card.s4{grid-column:span 4}
+  .card.r2{grid-row:span 2}
+}
+
+/* ============ PROCESS ============ */
+.steps{display:grid;gap:1rem;grid-template-columns:1fr}
+@media(min-width:700px){.steps{grid-template-columns:repeat(5,1fr)}}
+.step{position:relative;padding:1.7rem 1.3rem;border:1px solid var(--line-soft);border-radius:20px;background:rgba(255,255,255,.022)}
+.step b{display:grid;place-items:center;width:2.3rem;height:2.3rem;border-radius:50%;border:1px solid var(--line);background:var(--glass);font-size:.78rem;letter-spacing:.02em;color:var(--electric-2)}
+.step h3{margin-top:1.1rem;font-size:1.08rem;letter-spacing:-.02em}
+.step p{margin-top:.5rem;font-size:.86rem;color:var(--muted)}
+.step::after{content:"";position:absolute;right:-.55rem;top:2.55rem;width:.55rem;height:1px;background:var(--line);display:none}
+@media(min-width:700px){.step:not(:last-child)::after{display:block}}
+
+/* ============ CASES ============ */
+.cases{display:grid;gap:1rem;grid-template-columns:1fr}
+@media(min-width:820px){.cases{grid-template-columns:1fr 1fr}}
+.case{
+  border:1px solid var(--line);border-radius:26px;padding:1.9rem;background:rgba(255,255,255,.028);
+  transition:transform .45s cubic-bezier(.16,1,.3,1),border-color .35s ease,background .35s ease
+}
+.case:hover{transform:translateY(-5px);border-color:rgba(61,123,255,.4);background:rgba(255,255,255,.05)}
+.case__top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.7rem 1rem;padding-bottom:1.2rem;border-bottom:1px solid var(--line-soft)}
+.case__kpi{font-size:clamp(1.25rem,3.4vw,1.55rem);font-weight:800;letter-spacing:-.035em;color:var(--electric-2)}
+.tag{font-size:.66rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:.3rem .7rem}
+.case h3{margin-top:1.2rem;font-size:1.18rem;letter-spacing:-.025em}
+.case p{margin-top:.6rem;color:var(--muted);font-size:.92rem}
+
+.cases__note{margin-top:1.4rem;font-size:.82rem;color:var(--muted);max-width:70ch;padding-left:.9rem;border-left:2px solid var(--line)}
+.cases__subtitle{font-size:1.3rem;letter-spacing:-.03em}
+.minis{display:grid;gap:1rem;grid-template-columns:1fr;margin-top:1.6rem}
+@media(min-width:820px){.minis{grid-template-columns:1fr 1fr}}
+.mini{border:1px dashed var(--line);border-radius:20px;padding:1.5rem;background:rgba(255,255,255,.015)}
+.mini h4{margin-top:.9rem;font-size:1.05rem;letter-spacing:-.02em;font-weight:700}
+.mini p{margin-top:.5rem;font-size:.9rem;color:var(--muted)}
+
+/* ============ MARQUEE ============ */
+.marquee{border-block:1px solid var(--line-soft);background:rgba(255,255,255,.018);padding:2.6rem 0;overflow:hidden}
+.marquee__label{text-align:center;margin-bottom:1.6rem}
+.marquee__mask{
+  position:relative;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)
+}
+.marquee__track{display:flex;gap:2.6rem;width:max-content;animation:slide 38s linear infinite}
+.marquee__mask:hover .marquee__track{animation-play-state:paused}
+.marquee__track li{font-size:1.02rem;font-weight:600;color:var(--muted);white-space:nowrap;transition:color .3s ease}
+.marquee__track li:hover{color:var(--fg)}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ============ FOUNDER ============ */
+.founder{display:grid;gap:3rem;align-items:center}
+@media(min-width:960px){.founder{grid-template-columns:.85fr 1.15fr;gap:4rem}}
+.founder__media{position:relative;max-width:440px;margin-inline:auto;width:100%}
+.founder__frame{
+  border:1px solid var(--line);border-radius:28px;background:var(--glass);
+  padding:.7rem;backdrop-filter:blur(14px);overflow:hidden
+}
+.founder__frame img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:50% 22%;border-radius:20px}
+.founder__badge{
+  position:absolute;right:-.6rem;bottom:1.8rem;border:1px solid var(--line);
+  background:rgba(255,255,255,.07);backdrop-filter:blur(18px);border-radius:18px;
+  padding:.85rem 1.2rem;box-shadow:var(--glow)
+}
+.founder__badge small{display:block;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.founder__badge b{display:block;font-size:1.05rem;font-weight:800;letter-spacing:-.02em}
+@media(max-width:600px){.founder__badge{right:.5rem;bottom:1rem;padding:.7rem 1rem}}
+.founder h2{font-size:clamp(1.9rem,3.6vw,3rem);max-width:20ch}
+.founder__quote{margin-top:1.6rem;color:var(--muted);max-width:44ch}
+.founder__actions{margin-top:2rem;display:flex;flex-wrap:wrap;gap:.7rem}
+
+/* ============ CTA ============ */
+.cta-band{
+  position:relative;overflow:hidden;border:1px solid var(--line);border-radius:32px;
+  padding:clamp(2.6rem,6vw,4.5rem);text-align:center;background:rgba(255,255,255,.03)
+}
+.cta-band::before{
+  content:"";position:absolute;left:50%;top:-60%;transform:translateX(-50%);
+  width:min(760px,120%);aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle,rgba(61,123,255,.24),transparent 62%);pointer-events:none
+}
+.cta-band h2{position:relative;font-size:clamp(1.9rem,4.4vw,3.2rem);max-width:22ch;margin-inline:auto}
+.cta-band p{position:relative;margin-top:1.1rem;color:var(--muted)}
+.cta-band .btn{position:relative;margin-top:2rem}
+
+/* ============ FAQ ============ */
+.faq{display:grid;gap:.7rem;max-width:900px}
+details{border:1px solid var(--line-soft);border-radius:18px;background:rgba(255,255,255,.022);transition:border-color .3s ease,background .3s ease}
+details[open]{border-color:var(--line);background:rgba(255,255,255,.045)}
+summary{
+  display:flex;align-items:center;justify-content:space-between;gap:1.2rem;
+  padding:1.15rem 1.4rem;cursor:pointer;font-weight:700;letter-spacing:-.015em;list-style:none
+}
+summary::-webkit-details-marker{display:none}
+summary .plus{position:relative;flex:none;width:1.1rem;height:1.1rem;color:var(--electric-2)}
+summary .plus::before,summary .plus::after{content:"";position:absolute;left:50%;top:50%;background:currentColor;border-radius:2px;transition:transform .3s ease}
+summary .plus::before{width:1.1rem;height:2px;transform:translate(-50%,-50%)}
+summary .plus::after{width:2px;height:1.1rem;transform:translate(-50%,-50%)}
+details[open] summary .plus::after{transform:translate(-50%,-50%) rotate(90deg);opacity:0}
+details .answer{padding:0 1.4rem 1.3rem;color:var(--muted);max-width:70ch}
+
+/* ============ CONTACT ============ */
+.contact{display:grid;gap:2.6rem}
+@media(min-width:940px){.contact{grid-template-columns:.9fr 1.1fr;gap:4rem;align-items:start}}
+.contact__list{margin-top:2rem;display:grid;gap:.9rem}
+.contact__list a{display:flex;align-items:center;gap:.9rem;border:1px solid var(--line-soft);border-radius:16px;padding:.95rem 1.1rem;background:rgba(255,255,255,.022);transition:border-color .3s ease,background .3s ease,transform .3s ease}
+.contact__list a:hover{border-color:rgba(61,123,255,.45);background:rgba(255,255,255,.05);transform:translateX(3px)}
+.contact__list .ico{display:grid;place-items:center;width:2.1rem;height:2.1rem;border-radius:11px;background:rgba(61,123,255,.15);color:var(--electric-2);flex:none}
+.contact__list .ico svg{width:1rem;height:1rem}
+.contact__list small{display:block;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.contact__list b{font-weight:700;font-size:.95rem}
+
+form{border:1px solid var(--line);border-radius:26px;padding:clamp(1.4rem,3vw,2.2rem);background:rgba(255,255,255,.028);backdrop-filter:blur(14px)}
+.field{margin-bottom:1.05rem}
+.field label{display:block;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
+.field input,.field textarea{
+  width:100%;border:1px solid var(--line);border-radius:14px;background:rgba(0,0,0,.28);
+  color:var(--fg);font:inherit;font-size:.95rem;padding:.85rem 1rem;transition:border-color .25s ease,background .25s ease
+}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--electric);background:rgba(0,0,0,.45)}
+.field textarea{resize:vertical;min-height:120px}
+.form-row{display:grid;gap:1.05rem}
+@media(min-width:560px){.form-row{grid-template-columns:1fr 1fr}}
+form .btn{width:100%;justify-content:center;margin-top:.4rem}
+.field.check label{display:flex;align-items:flex-start;gap:.7rem;text-transform:none;letter-spacing:normal;font-size:.82rem;font-weight:400;color:var(--muted);margin:0;cursor:pointer}
+.field.check input{width:1.05rem;height:1.05rem;flex:none;margin-top:.15rem;accent-color:var(--electric)}
+.field.check a{color:var(--electric-2);text-decoration:underline}
+.form-note{margin-top:.9rem;font-size:.76rem;color:var(--muted);text-align:center}
+
+/* ============ FOOTER ============ */
+.site-footer{border-top:1px solid var(--line-soft);padding:4rem 0 2.2rem;background:var(--bg-soft)}
+.footer__grid{display:grid;gap:2.6rem}
+@media(min-width:820px){.footer__grid{grid-template-columns:1.4fr 1fr 1fr}}
+.footer__grid h4{font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:1.1rem}
+.footer__grid li{margin-bottom:.6rem}
+.footer__grid li a{font-size:.92rem;color:var(--muted);transition:color .2s ease}
+.footer__grid li a:hover{color:var(--fg)}
+.footer__tag{margin-top:1rem;color:var(--muted);font-size:.92rem;max-width:34ch}
+.footer__bottom{margin-top:3rem;padding-top:1.6rem;border-top:1px solid var(--line-soft);display:flex;flex-wrap:wrap;gap:.6rem;justify-content:space-between;font-size:.8rem;color:var(--muted)}
+</style>
+</head>
+
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+
+<header class="site-header" id="siteHeader">
+  <nav class="nav" aria-label="Principal">
+    <a class="brand" href="#inicio">IADEX<span>.</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#proceso">Proceso</a></li>
+      <li><a href="#casos">Casos</a></li>
+      <li><a href="#fundador">Sobre mí</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <a class="btn btn-primary btn-sm nav-cta" href="#contacto">
+      Agenda demo
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </a>
+    <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Abrir menú">
+      <svg class="ico-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg>
+      <svg class="ico-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></svg>
+    </button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#servicios">Servicios</a>
+    <a href="#proceso">Proceso</a>
+    <a href="#casos">Casos</a>
+    <a href="#fundador">Sobre mí</a>
+    <a href="#faq">FAQ</a>
+    <a class="btn btn-primary" href="#contacto">Agenda demo</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="inicio">
+    <div class="hero__glow" aria-hidden="true"><i></i><i></i></div>
+    <div class="container hero__grid">
+      <div class="reveal">
+        <div class="pill"><span class="dot" aria-hidden="true"></span><span>Automatización · IA · Desarrollo</span></div>
+        <h1>Tu empresa.<br><span class="serif grad">En automático.</span></h1>
+        <p class="hero__lede">Automatización, agentes de IA y desarrollo a medida para empresas que quieren dejar de perder horas en tareas repetitivas.</p>
+        <div class="hero__actions">
+          <a class="btn btn-primary" href="#contacto">
+            Solicitar diagnóstico
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <a class="btn btn-ghost" href="#casos">Ver casos de éxito</a>
+        </div>
+        <div class="hero__proof">
+          <div><strong>1 a 1</strong><span>Trato directo, sin comerciales</span></div>
+          <div><strong>2–6 sem.</strong><span>Primeros resultados</span></div>
+          <div><strong>+100</strong><span>Apps conectables</span></div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="orbit" aria-hidden="true">
+          <div class="orbit__ring"></div><div class="orbit__ring"></div><div class="orbit__ring"></div>
+          <div class="orbit__core"><div><b>IA</b><i>core</i></div></div>
+
+          <div class="chip c1 float-a">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg></span>
+            <span><small>Agente activo</small><b>24/7</b></span>
+          </div>
+          <div class="chip c2 float-b">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg></span>
+            <span><small>Flujo</small><b>Ejecutado</b></span>
+          </div>
+          <div class="chip c3 float-b">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 7h6v6"/><path d="m22 7-8.5 8.5-5-5L2 17"/></svg></span>
+            <span><small>Lead</small><b>Cualificado</b></span>
+          </div>
+          <div class="chip c4 float-a">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2.8a1 1 0 0 1 2 0l1 5.6a2 2 0 0 0 1.6 1.6l5.6 1a1 1 0 0 1 0 2l-5.6 1a2 2 0 0 0-1.6 1.6l-1 5.6a1 1 0 0 1-2 0l-1-5.6a2 2 0 0 0-1.6-1.6l-5.6-1a1 1 0 0 1 0-2l5.6-1a2 2 0 0 0 1.6-1.6z"/><path d="M20 2v4"/><path d="M22 4h-4"/></svg></span>
+            <span><small>CRM actualizado</small><b>OK</b></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICIOS ============ -->
+  <section class="sec" id="servicios">
+    <div class="container">
+      <div class="sec__head reveal">
+        <div>
+          <span class="eyebrow">Servicios</span>
+          <h2 class="h2">Diseño, construyo y <span class="serif electric">automatizo</span>.</h2>
+        </div>
+        <p class="lede">Cada servicio funciona por separado o combinado con el resto para transformar el modo en que trabaja tu empresa.</p>
+      </div>
+
+      <div class="bento reveal">
+        <article class="card is-lead s8 r2">
+          <span class="card__num" aria-hidden="true">01</span>
+          <span class="card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg></span>
+          <h3>Automatización con IA</h3>
+          <p>Automatizo procesos repetitivos para ahorrar tiempo y reducir errores, conectando las herramientas que ya usas.</p>
+        </article>
+
+        <article class="card s4">
+          <span class="card__num" aria-hidden="true">02</span>
+          <span class="card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg></span>
+          <h3>Agentes de IA</h3>
+          <p>Asistentes entrenados con la información de tu empresa para atender clientes y automatizar tareas.</p>
+        </article>
+
+        <article class="card s4">
+          <span class="card__num" aria-hidden="true">03</span>
+          <span class="card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg></span>
+          <h3>Desarrollo web a medida</h3>
+          <p>Webs personalizadas, rápidas, optimizadas para SEO y orientadas a convertir.</p>
+        </article>
+
+        <article class="card s4">
+          <span class="card__num" aria-hidden="true">04</span>
+          <span class="card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 7h6v6"/><path d="m22 7-8.5 8.5-5-5L2 17"/></svg></span>
+          <h3>Automatización comercial</h3>
+          <p>Sistemas de captación, cualificación y gestión con LinkedIn, email, CRM e IA.</p>
+        </article>
+
+        <article class="card s4">
+          <span class="card__num" aria-hidden="true">05</span>
+          <span class="card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5a3 3 0 1 0-5.997.125"/><path d="M12 5a3 3 0 1 1 5.997.125"/><path d="M6 12a3 3 0 0 0 0 6"/><path d="M18 12a3 3 0 0 1 0 6"/><path d="M12 5v14"/></svg></span>
+          <h3>IA para empresas</h3>
+          <p>Soluciones de IA a medida para productividad, atención al cliente y decisiones basadas en datos.</p>
+        </article>
+
+        <article class="card s4">
+          <span class="card__num" aria-hidden="true">06</span>
+          <span class="card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></span>
+          <h3>Desarrollo SaaS</h3>
+          <p>Plataformas digitales, herramientas internas y software personalizado.</p>
+        </article>
+
+        <article class="card s6">
+          <span class="card__num" aria-hidden="true">07</span>
+          <span class="card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg></span>
+          <h3>Formación online con IA</h3>
+          <p>Convierto el conocimiento de tu empresa en una academia digital lista para vender.</p>
+        </article>
+
+        <article class="card s6">
+          <span class="card__num" aria-hidden="true">08</span>
+          <span class="card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><line x1="8" x2="16" y1="12" y2="12"/></svg></span>
+          <h3>Integraciones</h3>
+          <p>Conecto CRM, ERP, WhatsApp, Google, Microsoft, OpenAI, n8n, Make y cientos de apps.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROCESO ============ -->
+  <section class="sec" id="proceso" style="padding-top:0">
+    <div class="container">
+      <div class="sec__head reveal">
+        <div>
+          <span class="eyebrow">Cómo trabajo</span>
+          <h2 class="h2">Un proceso claro, <span class="serif electric">de principio a fin</span>.</h2>
+        </div>
+        <p class="lede">Sin fases infinitas ni entregables de humo: cada etapa termina con algo que ya funciona.</p>
+      </div>
+      <div class="steps reveal">
+        <div class="step"><b>01</b><h3>Diagnóstico</h3><p>Analizo el negocio, los procesos y los objetivos.</p></div>
+        <div class="step"><b>02</b><h3>Estrategia</h3><p>Diseño la solución más rentable para tu caso.</p></div>
+        <div class="step"><b>03</b><h3>Diseño</h3><p>Creo la experiencia y la interfaz.</p></div>
+        <div class="step"><b>04</b><h3>Desarrollo</h3><p>Implemento automatizaciones, IA y desarrollo.</p></div>
+        <div class="step"><b>05</b><h3>Optimización</h3><p>Mido, mejoro y escalo el sistema.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CASOS ============ -->
+  <section class="sec" id="casos" style="padding-top:0">
+    <div class="container">
+      <div class="sec__head reveal">
+        <div>
+          <span class="eyebrow">Casos de éxito</span>
+          <h2 class="h2">Automatización aplicada a <span class="serif electric">negocios reales</span>.</h2>
+        </div>
+        <p class="lede">Dos proyectos ya implantados. Son los que puedo enseñar con números encima de la mesa.</p>
+      </div>
+
+      <div class="cases reveal">
+        <article class="case">
+          <div class="case__top"><span class="case__kpi">+65% oportunidades</span><span class="tag">Distribución industrial</span></div>
+          <h3>Cualificación automática de pedidos B2B</h3>
+          <p>Sustituí el triaje manual de solicitudes por un agente que clasifica, enruta y prepara la respuesta comercial.</p>
+        </article>
+        <article class="case">
+          <div class="case__top"><span class="case__kpi">+50% reservas online</span><span class="tag">Salud</span></div>
+          <h3>Agente de agenda para clínica dental multicentro</h3>
+          <p>Un agente atiende consultas, gestiona la agenda de varios centros y reduce las no-asistencias.</p>
+        </article>
+      </div>
+
+      <p class="cases__note reveal">Cifras medidas en esos dos proyectos concretos. Cada negocio parte de una situación distinta, así que tómalas como referencia, no como una promesa de resultado.</p>
+
+      <div class="reveal" style="margin-top:3.5rem">
+        <h3 class="cases__subtitle">Otros procesos que puedo automatizar</h3>
+        <p class="muted" style="margin-top:.6rem;font-size:.92rem">Todavía no tengo un caso cerrado que enseñar aquí, pero son escenarios que sé montar con las herramientas que ya uso.</p>
+        <div class="minis">
+          <div class="mini">
+            <span class="tag">Servicios jurídicos</span>
+            <h4>Automatización documental</h4>
+            <p>Recepción de documentación de clientes y generación de escritos base a partir de plantillas.</p>
+          </div>
+          <div class="mini">
+            <span class="tag">E-commerce</span>
+            <h4>Postventa y carritos abandonados</h4>
+            <p>Respuesta automática a incidencias frecuentes y recuperación de carritos por email o WhatsApp.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TECNOLOGÍAS ============ -->
+  <section class="marquee" aria-label="Tecnologías con las que trabajo">
+    <div class="container marquee__label"><span class="eyebrow">Tecnologías con las que trabajo</span></div>
+    <div class="marquee__mask">
+      <ul class="marquee__track" id="marquee">
+        <li>OpenAI</li><li>Claude</li><li>Gemini</li><li>n8n</li><li>Make</li><li>Supabase</li><li>Lovable</li><li>Vercel</li><li>Stripe</li><li>WhatsApp</li><li>HubSpot</li><li>Salesforce</li><li>Microsoft 365</li><li>Google Workspace</li>
+        <li aria-hidden="true">OpenAI</li><li aria-hidden="true">Claude</li><li aria-hidden="true">Gemini</li><li aria-hidden="true">n8n</li><li aria-hidden="true">Make</li><li aria-hidden="true">Supabase</li><li aria-hidden="true">Lovable</li><li aria-hidden="true">Vercel</li><li aria-hidden="true">Stripe</li><li aria-hidden="true">WhatsApp</li><li aria-hidden="true">HubSpot</li><li aria-hidden="true">Salesforce</li><li aria-hidden="true">Microsoft 365</li><li aria-hidden="true">Google Workspace</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ FUNDADOR ============ -->
+  <section class="sec" id="fundador">
+    <div class="container founder reveal">
+      <div class="founder__media">
+        <div class="founder__frame">
+          <picture>
+            <source srcset="assets/edu-cano-iadex.webp" type="image/webp">
+            <img src="assets/edu-cano-iadex.jpg" width="1000" height="1249" decoding="async" loading="lazy"
+                 alt="Edu Cano, fundador de IADEX, trabajando en su portátil">
+          </picture>
+        </div>
+        <div class="founder__badge"><small>Fundador &amp; CEO</small><b>Edu Cano</b></div>
+      </div>
+      <div>
+        <span class="eyebrow">Detrás de IADEX</span>
+        <h2 style="margin-top:1rem">No implanto tecnología por moda. <span class="serif electric">Primero entiendo el negocio.</span></h2>
+        <p class="founder__quote">IADEX acaba de arrancar, y eso tiene una ventaja concreta: hablas conmigo de principio a fin. Sin intermediarios, sin equipo rotando y con los proyectos elegidos de uno en uno para poder dedicarles tiempo de verdad.</p>
+        <div class="founder__actions">
+          <a class="btn btn-ghost" href="#proceso">
+            Cómo trabajo
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <a class="btn btn-primary" href="#contacto">Hablemos</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section class="sec" style="padding-top:0">
+    <div class="container">
+      <div class="cta-band reveal">
+        <h2>¿Hay algo que tu equipo repite <span class="serif electric">todas las semanas</span>?</h2>
+        <p>Cuéntamelo en una llamada de 30 minutos. Si veo que no compensa automatizarlo, te lo digo.</p>
+        <a class="btn btn-primary" href="#contacto">
+          Contarme mi caso
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="sec" id="faq" style="padding-top:0">
+    <div class="container">
+      <div class="sec__head reveal">
+        <div>
+          <span class="eyebrow">Preguntas frecuentes</span>
+          <h2 class="h2">Lo que suelen preguntar <span class="serif electric">antes de empezar</span>.</h2>
+        </div>
+      </div>
+      <div class="faq reveal">
+        <details name="faq">
+          <summary>¿Qué tipo de procesos puedes automatizar?<span class="plus" aria-hidden="true"></span></summary>
+          <div class="answer">Cualquier proceso que se repita: cualificación de leads, respuestas a clientes, generación de documentos, informes, sincronización entre herramientas o atención vía chat, email y voz.</div>
+        </details>
+        <details name="faq">
+          <summary>¿Necesito conocimientos técnicos?<span class="plus" aria-hidden="true"></span></summary>
+          <div class="answer">No. Yo diseño, implemento y mantengo el sistema. Tu equipo solo tiene que usarlo.</div>
+        </details>
+        <details name="faq">
+          <summary>¿Puedes conectar con mi CRM y mis herramientas actuales?<span class="plus" aria-hidden="true"></span></summary>
+          <div class="answer">Sí. Trabajo con las plataformas más habituales (HubSpot, Salesforce, Pipedrive, Notion, Google, Microsoft) y hago integraciones a medida cuando hace falta.</div>
+        </details>
+        <details name="faq">
+          <summary>¿La IA va a sustituir a mi equipo?<span class="plus" aria-hidden="true"></span></summary>
+          <div class="answer">No. El objetivo es eliminar tareas repetitivas para que las personas se dediquen a lo que aporta valor real: vender, decidir y cuidar al cliente.</div>
+        </details>
+        <details name="faq">
+          <summary>¿Cuánto tarda en implementarse una automatización?<span class="plus" aria-hidden="true"></span></summary>
+          <div class="answer">Los primeros resultados suelen llegar en 2–6 semanas según el alcance. Empiezo por lo que da retorno rápido y escalo desde ahí.</div>
+        </details>
+        <details name="faq">
+          <summary>¿Qué ocurre con los datos de mi empresa?<span class="plus" aria-hidden="true"></span></summary>
+          <div class="answer">Cada proyecto define accesos, tratamiento y arquitectura teniendo en cuenta la seguridad y la privacidad. No comparto los datos de tu negocio con terceros.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACTO ============ -->
+  <section class="sec" id="contacto" style="padding-top:0">
+    <div class="container contact reveal">
+      <div>
+        <span class="eyebrow">Contacto</span>
+        <h2 class="h2" style="margin-top:1rem">Cuéntame qué te <span class="serif electric">quita tiempo</span>.</h2>
+        <p class="lede" style="margin-top:1.2rem">Respondo en menos de 24 h laborables con una primera lectura de tu caso y si tiene sentido automatizarlo.</p>
+        <div class="contact__list">
+          <a href="mailto:educandej@gmail.com">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span>
+            <span><small>Email</small><b>educandej@gmail.com</b></span>
+          </a>
+        </div>
+        <p class="muted" style="margin-top:1.4rem;font-size:.85rem;max-width:40ch">Escribe directamente si lo prefieres. Los correos los leo y los contesto yo, no hay nadie más en medio.</p>
+      </div>
+
+      <form id="contactForm" novalidate>
+        <div class="form-row">
+          <div class="field">
+            <label for="f-nombre">Nombre</label>
+            <input id="f-nombre" name="nombre" type="text" autocomplete="name" required placeholder="Tu nombre">
+          </div>
+          <div class="field">
+            <label for="f-empresa">Empresa</label>
+            <input id="f-empresa" name="empresa" type="text" autocomplete="organization" placeholder="Nombre de la empresa">
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-email">Email</label>
+          <input id="f-email" name="email" type="email" autocomplete="email" required placeholder="tu@empresa.com">
+        </div>
+        <div class="field">
+          <label for="f-mensaje">¿Qué proceso quieres automatizar?</label>
+          <textarea id="f-mensaje" name="mensaje" required placeholder="Cuéntame brevemente el proceso, cuánto tiempo os consume y qué herramientas usáis."></textarea>
+        </div>
+        <div class="field check">
+          <label for="f-rgpd">
+            <input id="f-rgpd" name="rgpd" type="checkbox" required>
+            <span>He leído y acepto la <a href="politica-privacidad.html">política de privacidad</a>. Usaré tus datos solo para responderte.</span>
+          </label>
+        </div>
+        <button class="btn btn-primary" type="submit">
+          Enviar solicitud
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </button>
+        <p class="form-note" id="formNote">Al enviar se abrirá tu cliente de correo con el mensaje listo.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <a class="brand" href="#inicio">IADEX<span>.</span></a>
+        <p class="footer__tag">Automatización e Inteligencia Artificial para empresas. <span class="serif electric">Tu empresa. En automático.</span></p>
+      </div>
+      <div>
+        <h4>Navegación</h4>
+        <ul>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#proceso">Proceso</a></li>
+          <li><a href="#casos">Casos de éxito</a></li>
+          <li><a href="#fundador">Sobre mí</a></li>
+          <li><a href="#faq">Preguntas frecuentes</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="politica-privacidad.html">Política de privacidad</a></li>
+          <li><a href="aviso-legal.html">Aviso legal</a></li>
+          <li><a href="politica-cookies.html">Política de cookies</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© <span id="year">2026</span> IADEX. Todos los derechos reservados.</span>
+      <span>Tu empresa. En automático.</span>
+    </div>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"Organization",
+      "@id":"https://iadex.es/#org",
+      "name":"IADEX",
+      "url":"https://iadex.es/",
+      "description":"Automatización de procesos, agentes de IA y desarrollo a medida para empresas.",
+      "email":"educandej@gmail.com",
+      "founder":{"@type":"Person","name":"Edu Cano","jobTitle":"Fundador y CEO"},
+      "areaServed":"ES",
+      "knowsAbout":["Automatización de procesos","Inteligencia artificial","Agentes de IA","Integraciones CRM","Desarrollo web","SaaS"]
+    },
+    {
+      "@type":"WebSite",
+      "@id":"https://iadex.es/#website",
+      "url":"https://iadex.es/",
+      "name":"IADEX",
+      "inLanguage":"es-ES",
+      "publisher":{"@id":"https://iadex.es/#org"}
+    },
+    {
+      "@type":"FAQPage",
+      "mainEntity":[
+        {"@type":"Question","name":"¿Qué tipo de procesos puedes automatizar?","acceptedAnswer":{"@type":"Answer","text":"Cualquier proceso que se repita: cualificación de leads, respuestas a clientes, generación de documentos, informes, sincronización entre herramientas o atención vía chat, email y voz."}},
+        {"@type":"Question","name":"¿Necesito conocimientos técnicos?","acceptedAnswer":{"@type":"Answer","text":"No. Yo diseño, implemento y mantengo el sistema. Tu equipo solo tiene que usarlo."}},
+        {"@type":"Question","name":"¿Puedes conectar con mi CRM y mis herramientas actuales?","acceptedAnswer":{"@type":"Answer","text":"Sí. Trabajo con las plataformas más habituales (HubSpot, Salesforce, Pipedrive, Notion, Google, Microsoft) y hago integraciones a medida cuando hace falta."}},
+        {"@type":"Question","name":"¿La IA va a sustituir a mi equipo?","acceptedAnswer":{"@type":"Answer","text":"No. El objetivo es eliminar tareas repetitivas para que las personas se dediquen a lo que aporta valor real: vender, decidir y cuidar al cliente."}},
+        {"@type":"Question","name":"¿Cuánto tarda en implementarse una automatización?","acceptedAnswer":{"@type":"Answer","text":"Los primeros resultados suelen llegar en 2–6 semanas según el alcance. Empiezo por lo que da retorno rápido y escalo desde ahí."}},
+        {"@type":"Question","name":"¿Qué ocurre con los datos de mi empresa?","acceptedAnswer":{"@type":"Answer","text":"Cada proyecto define accesos, tratamiento y arquitectura teniendo en cuenta la seguridad y la privacidad. No comparto los datos de tu negocio con terceros."}}
+      ]
+    }
+  ]
+}
+</script>
+
+<script>
+(function(){
+  "use strict";
+
+  /* --- año dinámico --- */
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* --- header sólido al hacer scroll --- */
+  var header = document.getElementById('siteHeader');
+  var onScroll = function(){ header.classList.toggle('is-scrolled', window.scrollY > 20); };
+  onScroll();
+  window.addEventListener('scroll', onScroll, {passive:true});
+
+  /* --- menú móvil --- */
+  var burger = document.getElementById('burger');
+  var menu   = document.getElementById('mobileMenu');
+  var setMenu = function(open){
+    menu.classList.toggle('is-open', open);
+    header.classList.toggle('is-menu-open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    burger.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+  };
+  burger.addEventListener('click', function(){ setMenu(!menu.classList.contains('is-open')); });
+  menu.addEventListener('click', function(e){ if(e.target.closest('a')) setMenu(false); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') setMenu(false); });
+  document.addEventListener('click', function(e){
+    if(menu.classList.contains('is-open') && !e.target.closest('.site-header')) setMenu(false);
+  });
+
+  /* --- reveal on scroll --- */
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items  = document.querySelectorAll('.reveal');
+  if(reduce || !('IntersectionObserver' in window)){
+    items.forEach(function(el){ el.classList.add('is-visible'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('is-visible'); io.unobserve(en.target); }
+      });
+    }, {rootMargin:'0px 0px -8% 0px', threshold:0.08});
+    items.forEach(function(el){ io.observe(el); });
+  }
+
+  /* --- scrollspy en la navegación --- */
+  var links = Array.prototype.slice.call(document.querySelectorAll('#navLinks a'));
+  var targets = links.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+  if('IntersectionObserver' in window && targets.length){
+    var spy = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(!en.isIntersecting) return;
+        links.forEach(function(a){
+          a.classList.toggle('is-active', a.getAttribute('href') === '#' + en.target.id);
+        });
+      });
+    }, {rootMargin:'-45% 0px -50% 0px', threshold:0});
+    targets.forEach(function(t){ spy.observe(t); });
+  }
+
+  /* --- FAQ: solo una abierta (fallback para navegadores sin name=) --- */
+  var faqs = document.querySelectorAll('.faq details');
+  faqs.forEach(function(d){
+    d.addEventListener('toggle', function(){
+      if(!d.open) return;
+      faqs.forEach(function(o){ if(o !== d) o.open = false; });
+    });
+  });
+
+  /* --- formulario -> mailto --- */
+  var DESTINO = 'educandej@gmail.com';           /* <-- cambia este email por el tuyo */
+  var form = document.getElementById('contactForm');
+  var note = document.getElementById('formNote');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(!form.checkValidity()){ form.reportValidity(); return; }
+    var d = new FormData(form);
+    var cuerpo =
+      'Nombre: '  + (d.get('nombre')  || '') + '\n' +
+      'Empresa: ' + (d.get('empresa') || '-') + '\n' +
+      'Email: '   + (d.get('email')   || '') + '\n\n' +
+      (d.get('mensaje') || '');
+    var asunto = 'Solicitud de diagnóstico — ' + (d.get('empresa') || d.get('nombre') || 'IADEX');
+    window.location.href = 'mailto:' + DESTINO +
+      '?subject=' + encodeURIComponent(asunto) +
+      '&body='    + encodeURIComponent(cuerpo);
+    note.textContent = 'Abriendo tu cliente de correo… si no se abre, escríbenos a ' + DESTINO;
+  });
+})();
+</script>
+</body>
+</html>
