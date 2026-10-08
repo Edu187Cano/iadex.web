@@ -3,5 +3,4 @@ Allow: /
 Disallow: /aviso-legal.html
 Disallow: /politica-privacidad.html
 Disallow: /politica-cookies.html
-
-Sitemap: https://iadex.es/sitemap.xml
+Sitemap: https://iadex-web-a553.vercel.app/sitemap.xml
